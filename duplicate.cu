@@ -182,7 +182,8 @@ int main(int argc, char *argv[]){
 	// }
 
 	// Initialize data on Host
-	initialize_data_random_cudaMallocHost(&input_size, input_size * img_num);
+	int size = input_size * img_num;
+	initialize_data_random_cudaMallocHost(&input_size, size);
 
 	// int *temp_input;
 	// for (int i = 0 ; i < img_num; i++)
