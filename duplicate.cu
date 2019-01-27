@@ -126,28 +126,31 @@ __global__ void blur_kernel(int *img_out, int *img_in, int height, int width){
 	sum += img_in[(tid_y + 2) * (width + IMAGE_PAD_SIZE) + tid_x + 2];
 	img_out[tid_y * width + tid_x] = sum / 9;
 }
-
-void sequential_blur(int *img_out, int *img_in, int height, int width){
-
-	for(int i = 0; i < height; i++){
-		for(int j = 0; j < width; j++){
-			int sum = 0;
-			sum += img_in[(i) * (width + IMAGE_PAD_SIZE) + j];
-			sum += img_in[(i) * (width + IMAGE_PAD_SIZE) + j + 1];
-			sum += img_in[(i) * (width + IMAGE_PAD_SIZE) + j + 2];
-			sum += img_in[(i + 1) * (width + IMAGE_PAD_SIZE) + j];
-			sum += img_in[(i + 1) * (width + IMAGE_PAD_SIZE) + j + 1];
-			sum += img_in[(i + 1) * (width + IMAGE_PAD_SIZE) + j + 2];
-			sum += img_in[(i + 2) * (width + IMAGE_PAD_SIZE) + j];
-			sum += img_in[(i + 2) * (width + IMAGE_PAD_SIZE) + j + 1];
-			sum += img_in[(i + 2) * (width + IMAGE_PAD_SIZE) + j + 2];
-
-			img_out[i * width + j] = sum / 9;
+*/
+void sequential_duplicate(int *persent,int *img_in, int img_size){
+	int temp[img_num * img_size];
+	for(int counter = 0; counter < img_num; counter++){
+		memcpy(temp , 0, img_num * img_size);
+		int j = (counter + 1) * img_size;
+		for(repeat = 0  ; repeat < img_num - (counter + 1); repeat++){
+			int num_of_one=0;
+			for (int i = counter*img_size; i < (counter+1) *img_size; i++){
+				int diff = abs (img_in[i] - img_in[j]);
+				if (diff = 0)
+					temp[j] = 0;
+				else {
+					temp[j] = 1;
+					num_of_one++;
+				}
+				j++;
+			}
+			int persent[(counter+1)*(repeat+1)]= (num_of_one*100)/img_size;
+			printf("darsad tashabohe axe %d ba axe %d hast %d" counter , repeat+1 ,int persent[(counter+1)*(repeat+1)]);
 		}
 	}
 	return;
 }
-*/
+
 int main(int argc, char *argv[]){
 
 	double elapsed_time;
@@ -169,6 +172,8 @@ int main(int argc, char *argv[]){
 
 	
 	input_size = IMAGE_SIZE_X * IMAGE_SIZE_Y;
+	output_size = img_num * img_num;
+
 
 	block_size_x = atoi(argv[1]);
 	block_size_y = atoi(argv[2]);
@@ -184,35 +189,36 @@ int main(int argc, char *argv[]){
 	// Initialize data on Host
 	int count;
 	initialize_data_random_cudaMallocHost(&input_h, input_size*img_num);
-	for (int i = 0 ; i<input_size*img_num ; i++){
-		printf("%d\n", input_h[i] );
-		count ++;
-	}
-	printf("count is: %d\n", count );
+	// for (int i = 0 ; i<input_size*img_num ; i++){
+	// 	printf("%d\n", input_h[i] );
+	// 	count ++;
+	// }
+	// printf("count is: %d\n", count );
 
-	/*
+	// Initialize data on Host
+	initialize_data_random_cudaMallocHost(&input_h, input_size);
 	initialize_data_zero(&output_h, output_size);
-	initialize_data_zero_cudaMallocHost(&device_output_h, output_size);
+	//initialize_data_zero_cudaMallocHost(&device_output_h, output_size);
 	
 	// Initialize data on Device
-	CUDA_CHECK_RETURN(cudaMalloc((void **)&input_d, sizeof(int)*input_size));
-	CUDA_CHECK_RETURN(cudaMalloc((void **)&output_d, sizeof(int)*output_size));
+	// CUDA_CHECK_RETURN(cudaMalloc((void **)&input_d, sizeof(int)*input_size));
+	// CUDA_CHECK_RETURN(cudaMalloc((void **)&output_d, sizeof(int)*output_size));
 	
 	// Perform GPU Warm-up
-	CUDA_CHECK_RETURN(cudaMemcpyAsync(input_d, input_h, sizeof(int), cudaMemcpyHostToDevice, streams[0]));
+	// CUDA_CHECK_RETURN(cudaMemcpyAsync(input_d, input_h, sizeof(int), cudaMemcpyHostToDevice, streams[0]));
 
 	// Sequential blur operation
 	
 	set_clock();
 
-	sequential_blur(output_h, input_h, IMAGE_SIZE_Y, IMAGE_SIZE_X);
+	sequential_duplicate(output_h,input_h, input_size);
 
     elapsed_time = get_elapsed_time();
 
 	printf("-> Naive blur operation time: %.4fms\n", elapsed_time / 1000);
 
 	// CUDA Parallel blur operation
-
+/*
 	set_clock();
 
 	int stream_size = output_size / stream_count;
