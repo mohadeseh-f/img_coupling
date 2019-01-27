@@ -158,7 +158,7 @@ int main(int argc, char *argv[]){
 	//int output_size;
 	int *input_h[img_num], *output_h, *device_output_h;
 	//int *input_d, *output_d;
-	//int stream_count;
+	int stream_count;
 	// int work_per_thread;
 
 	if(argc != 4){
@@ -186,7 +186,7 @@ int main(int argc, char *argv[]){
 	for (int i = 0 ; i < img_num; i++)
 	{
 		initialize_data_random_cudaMallocHost(&temp_input, input_size);
-		memcopy (input_h[i], temp_input, input_size);
+		memcpy (input_h[i], temp_input, input_size);
 	}
 	free(temp_input);
 
