@@ -182,18 +182,20 @@ int main(int argc, char *argv[]){
 	// }
 
 	// Initialize data on Host
-	int *temp_input;
-	for (int i = 0 ; i < img_num; i++)
-	{
-		initialize_data_random_cudaMallocHost(&temp_input, input_size);
-		memcpy (input_h[i], temp_input, input_size);
-	}
-	free(temp_input);
+	initialize_data_random_cudaMallocHost(&input_size, input_size * img_num);
+
+	// int *temp_input;
+	// for (int i = 0 ; i < img_num; i++)
+	// {
+	// 	initialize_data_random_cudaMallocHost(&temp_input, input_size);
+	// 	memcpy (input_h[i], temp_input, input_size);
+	// }
+	// free(temp_input);
 
 
-	for (int i = 0 ; i < input_size; i++)
+	for (int i = 0 ; i < input_size * img_num; i++)
 	{
-		printf("%d\t",input_h[1][i] );
+		printf("%d\t",input_h[i] );
 	}
 /*
 	initialize_data_zero(&output_h, output_size);
