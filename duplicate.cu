@@ -1,3 +1,7 @@
 #include"Douplicate.h"
+int main(){
 
-printf("heloo rahele and mohadese");
+	printf("heloo rahele and mohadese");
+
+	return 0;
+}
