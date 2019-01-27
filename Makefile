@@ -1,11 +1,11 @@
 nvcc_options= -gencode arch=compute_30,code=sm_30 -lm -D TEST --compiler-options -Wall 
-sources = coupling.cu
+sources = douplicate.cu
 
-all: coupling
+all: douplicate
 
-coupling.cu: $(sources) Makefile coupling.h
-	nvcc -o coupling $(sources) $(nvcc_options)
+douplicate.cu: $(sources) Makefile douplicate.h
+	nvcc -o douplicate $(sources) $(nvcc_options)
 
 clean:
-	rm coupling
+	rm douplicate
 	

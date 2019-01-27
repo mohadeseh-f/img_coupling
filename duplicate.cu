@@ -1,4 +1,4 @@
-#include"Douplicate.h"
+#include"douplicate.h"
 int main(){
 
 	printf("heloo rahele and mohadese");
