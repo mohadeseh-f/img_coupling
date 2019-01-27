@@ -24,6 +24,9 @@
 
 #define IMAGE_PAD_SIZE 2
 
+ ///********
+
+#define img_num 10
 //Macro for checking cuda errors following a cuda launch or api call
 #define CUDA_CHECK_RETURN(value) {											\
 	cudaError_t _m_cudaStat = value;										\
@@ -70,13 +73,12 @@ void initialize_data_random(int **data, int data_size){
 
 void initialize_data_random_cudaMallocHost(int **data, int data_size){
 
-	static time_t t;
-	srand((unsigned) time(&t));
-
+	// static time_t t;
+	// srand((unsigned) time(&t));
 	cudaMallocHost((void **)data, sizeof(int) * data_size);
 	for(int i = 0; i < data_size; i++){
 		(*data)[i] = rand() % RANDOM_NUMBER_MAX;
-	}   
+	}  
 }
 
 void initialize_data_zero(int **data, int data_size){

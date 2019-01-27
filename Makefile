@@ -4,7 +4,7 @@ sources = coupling.cu
 all: coupling
 
 coupling.cu: $(sources) Makefile coupling.h
-	nvcc -o coupling.cu $(sources) $(nvcc_options)
+	nvcc -o coupling $(sources) $(nvcc_options)
 
 clean:
 	rm coupling
