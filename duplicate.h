@@ -91,5 +91,5 @@ void initialize_data_zero_cudaMallocHost(int **data, int data_size){
 	memset(*data, 0, data_size*sizeof(int));
 }
 
-
-#endif*/
+*/
+#endif
