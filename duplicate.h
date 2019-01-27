@@ -16,7 +16,7 @@
 
 #define STREAM_NUMBERS 2
 
-#define RANDOM_NUMBER_MAX 1000
+#define RANDOM_NUMBER_MAX 10
 
 #define IMAGE_SIZE_X  100
 
