@@ -1,6 +1,6 @@
 #include"duplicate.h"
 
-__global__ void blur_kernel_shared_memory_revised_II(int *img_out, int *img_in, int height, int width, int pad){
+/*__global__ void blur_kernel_shared_memory_revised_II(int *img_out, int *img_in, int height, int width, int pad){
 
         int tid_x = threadIdx.x + blockIdx.x * blockDim.x;
         int tid_y = threadIdx.y + blockIdx.y * blockDim.y;
@@ -147,17 +147,18 @@ void sequential_blur(int *img_out, int *img_in, int height, int width){
 	}
 	return;
 }
+*/
 
 int main(int argc, char *argv[]){
 
-	double elapsed_time;
+	//double elapsed_time;
 	int block_size_x, grid_size_x;
 	int block_size_y, grid_size_y;
 	int input_size;
-	int output_size;
-	int *input_h, *output_h, *device_output_h;
-	int *input_d, *output_d;
-	int stream_count;
+	//int output_size;
+	int *input_h[img_num], *output_h, *device_output_h;
+	//int *input_d, *output_d;
+	//int stream_count;
 	// int work_per_thread;
 
 	if(argc != 4){
@@ -167,22 +168,34 @@ int main(int argc, char *argv[]){
 		return 1;
 	}
 
-	input_size = (IMAGE_SIZE_X + IMAGE_PAD_SIZE) * (IMAGE_SIZE_Y + IMAGE_PAD_SIZE);
-	output_size = IMAGE_SIZE_X * IMAGE_SIZE_Y;
+	input_size = IMAGE_SIZE_X * IMAGE_SIZE_Y;
 
 	block_size_x = atoi(argv[1]);
 	block_size_y = atoi(argv[2]);
 	stream_count = atoi(argv[3]);
 	// work_per_thread = atoi(argv[4]);
 
-	cudaStream_t* streams = (cudaStream_t *)malloc(sizeof(cudaStream_t) * STREAM_NUMBERS);
+	//cudaStream_t* streams = (cudaStream_t *)malloc(sizeof(cudaStream_t) * STREAM_NUMBERS);
 
-	for(int i = 0; i < STREAM_NUMBERS; i++){
-		cudaStreamCreate(&streams[i]);
-	}
+	// for(int i = 0; i < STREAM_NUMBERS; i++){
+	// 	cudaStreamCreate(&streams[i]);
+	// }
 
 	// Initialize data on Host
-	initialize_data_random_cudaMallocHost(&input_h, input_size);
+	int *temp_input;
+	for (int i = 0 ; i < img_num; i++)
+	{
+		initialize_data_random_cudaMallocHost(&temp_input, input_size);
+		memcopy (input_h[i], temp_input, input_size);
+	}
+	free(temp_input);
+
+
+	for (int i = 0 ; i < input_size; i++)
+	{
+		printf("%d\t",input_h[1][i] );
+	}
+/*
 	initialize_data_zero(&output_h, output_size);
 	initialize_data_zero_cudaMallocHost(&device_output_h, output_size);
 	
@@ -272,6 +285,6 @@ int main(int argc, char *argv[]){
 	CUDA_CHECK_RETURN(cudaFreeHost(device_output_h));
 	CUDA_CHECK_RETURN(cudaFree(output_d));
 	CUDA_CHECK_RETURN(cudaFree(input_d));
-
+*/
 	return 0;
 }

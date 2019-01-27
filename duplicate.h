@@ -18,11 +18,14 @@
 
 #define RANDOM_NUMBER_MAX 1000
 
-#define IMAGE_SIZE_X 8192
+#define IMAGE_SIZE_X 80//8192
 
-#define IMAGE_SIZE_Y 16384
+#define IMAGE_SIZE_Y 80//16384
 
 #define IMAGE_PAD_SIZE 2
+//******
+#define img_num 10
+
 
 //Macro for checking cuda errors following a cuda launch or api call
 #define CUDA_CHECK_RETURN(value) {											\
