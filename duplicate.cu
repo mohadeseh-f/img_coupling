@@ -208,7 +208,7 @@ int main(int argc, char *argv[]){
 	
 	set_clock();
 
-	// sequential_duplicate(output_h,input_h, input_size);
+	sequential_duplicate(output_h,input_h, input_size);
 
     elapsed_time = get_elapsed_time();
 
