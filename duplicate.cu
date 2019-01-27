@@ -156,7 +156,7 @@ int main(int argc, char *argv[]){
 	int block_size_y, grid_size_y;
 	int input_size;
 	//int output_size;
-	int *input_h[img_num], *output_h, *device_output_h;
+	int *input_h, *output_h, *device_output_h;
 	//int *input_d, *output_d;
 	int stream_count;
 	// int work_per_thread;
