@@ -1,6 +1,6 @@
 #include"duplicate.h"
-
-/*__global__ void blur_kernel_shared_memory_revised_II(int *img_out, int *img_in, int height, int width, int pad){
+/*
+__global__ void blur_kernel_shared_memory_revised_II(int *img_out, int *img_in, int height, int width, int pad){
 
         int tid_x = threadIdx.x + blockIdx.x * blockDim.x;
         int tid_y = threadIdx.y + blockIdx.y * blockDim.y;
@@ -148,16 +148,15 @@ void sequential_blur(int *img_out, int *img_in, int height, int width){
 	return;
 }
 */
-
 int main(int argc, char *argv[]){
 
-	//double elapsed_time;
+	double elapsed_time;
 	int block_size_x, grid_size_x;
 	int block_size_y, grid_size_y;
 	int input_size;
-	//int output_size;
+	int output_size;
 	int *input_h, *output_h, *device_output_h;
-	//int *input_d, *output_d;
+	int *input_d, *output_d;
 	int stream_count;
 	// int work_per_thread;
 
@@ -168,6 +167,7 @@ int main(int argc, char *argv[]){
 		return 1;
 	}
 
+	
 	input_size = IMAGE_SIZE_X * IMAGE_SIZE_Y;
 
 	block_size_x = atoi(argv[1]);
@@ -182,23 +182,12 @@ int main(int argc, char *argv[]){
 	// }
 
 	// Initialize data on Host
-	int size = input_size * img_num;
-	initialize_data_random_cudaMallocHost(&input_size, size);
-
-	// int *temp_input;
-	// for (int i = 0 ; i < img_num; i++)
-	// {
-	// 	initialize_data_random_cudaMallocHost(&temp_input, input_size);
-	// 	memcpy (input_h[i], temp_input, input_size);
-	// }
-	// free(temp_input);
-
-
-	for (int i = 0 ; i < input_size * img_num; i++)
-	{
-		printf("%d\t",input_h[i] );
+	initialize_data_random_cudaMallocHost(&input_h, input_size*img_num);
+	for (int i = 0 ; i<input_size*img_num ; i++){
+		printf("%d\n", input_h[i] );
 	}
-/*
+
+	/*
 	initialize_data_zero(&output_h, output_size);
 	initialize_data_zero_cudaMallocHost(&device_output_h, output_size);
 	
