@@ -128,24 +128,21 @@ __global__ void blur_kernel(int *img_out, int *img_in, int height, int width){
 }
 */
 void sequential_duplicate(int *persent,int *img_in, int img_size){
-	int temp[img_num * img_size];
+	// int temp[img_num * img_size];
 	for(int counter = 0; counter < img_num; counter++){
-		memcpy(temp , 0, img_num * img_size);
+		// memcpy(temp , 0, img_num * img_size);
 		int j = (counter + 1) * img_size;
-		for(repeat = 0  ; repeat < img_num - (counter + 1); repeat++){
+		for(int repeat = 0  ; repeat < img_num - (counter + 1); repeat++){
 			int num_of_one=0;
 			for (int i = counter*img_size; i < (counter+1) *img_size; i++){
 				int diff = abs (img_in[i] - img_in[j]);
-				if (diff = 0)
-					temp[j] = 0;
-				else {
-					temp[j] = 1;
+				if (diff != 0)
 					num_of_one++;
-				}
+				
 				j++;
 			}
-			int persent[(counter+1)*(repeat+1)]= (num_of_one*100)/img_size;
-			printf("darsad tashabohe axe %d ba axe %d hast %d" counter , repeat+1 ,int persent[(counter+1)*(repeat+1)]);
+			persent[(counter+1)*(repeat+1)]= (num_of_one*100)/img_size;
+			printf("darsad tashabohe axe %d ba axe %d hast %d", counter , repeat+1 , persent[(counter+1)*(repeat+1)]);
 		}
 	}
 	return;
