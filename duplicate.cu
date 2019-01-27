@@ -142,7 +142,7 @@ void sequential_duplicate(int *persent,int *img_in, int img_size){
 				j++;
 			}
 			persent[(counter+1)*(repeat+1)]= (num_of_one*100)/img_size;
-			printf("darsad tashabohe axe %d ba axe %d hast %d", counter , repeat+1 , persent[(counter+1)*(repeat+1)]);
+			printf("darsad tashabohe axe %d ba axe %d hast %d \n", counter , repeat+1 , persent[(counter+1)*(repeat+1)]);
 		}
 	}
 	return;
