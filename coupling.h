@@ -36,7 +36,7 @@
 		exit(1);															\
 	} }
 
-struct timeval start, end;
+/*struct timeval start, end;
 
 void set_clock(){
 	gettimeofday(&start, NULL);
@@ -92,4 +92,4 @@ void initialize_data_zero_cudaMallocHost(int **data, int data_size){
 }
 
 
-#endif
+#endif*/
