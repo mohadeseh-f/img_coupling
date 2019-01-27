@@ -1,3 +1,6 @@
+#ifndef _DOUPLICATE_H
+#define _DOUPLICATE_H
+
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
