@@ -18,9 +18,9 @@
 
 #define RANDOM_NUMBER_MAX 1000
 
-#define IMAGE_SIZE_X  8192
+#define IMAGE_SIZE_X  100
 
-#define IMAGE_SIZE_Y 8192
+#define IMAGE_SIZE_Y 100
 
 #define IMAGE_PAD_SIZE 2
 //******

@@ -186,11 +186,11 @@ int main(int argc, char *argv[]){
 	// Initialize data on Host
 	int count;
 	initialize_data_random_cudaMallocHost(&input_h, input_size*img_num);
-	// for (int i = 0 ; i<input_size*img_num ; i++){
-	// 	printf("%d\n", input_h[i] );
-	// 	count ++;
-	// }
-	// printf("count is: %d\n", count );
+	for (int i = 0 ; i<input_size*img_num ; i++){
+		printf("%d\n", input_h[i] );
+		count ++;
+	}
+	printf("count is: %d\n", count );
 
 	// Initialize data on Host
 	initialize_data_random_cudaMallocHost(&input_h, input_size);
@@ -208,7 +208,7 @@ int main(int argc, char *argv[]){
 	
 	set_clock();
 
-	sequential_duplicate(output_h,input_h, input_size);
+	// sequential_duplicate(output_h,input_h, input_size);
 
     elapsed_time = get_elapsed_time();
 
