@@ -3,7 +3,7 @@ sources = duplicate.cu
 
 all: duplicate
 
-duplicate.cu: $(sources) Makefile duplicate.h
+duplicate: $(sources) Makefile duplicate.h
 	nvcc -o duplicate $(sources) $(nvcc_options)
 
 clean:
