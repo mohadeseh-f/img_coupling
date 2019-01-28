@@ -1,22 +1,26 @@
 #include"duplicate.h"
 
-// __global__ void duplication_kernel(int *output,int*origin_data, int *data, int size){
+__global__ void duplication_kernel(int *output,int*origin_data, int *data, int size){
 	
-// 	int origin_tid = threadIdx.x + blockIdx.x * blockDim.x;
-// 	int tid = origin_tid+size;
+	int tid = threadIdx.x + blockIdx.x * blockDim.x;
+	int j=tid%size;
+	int i=(tid-j)/size;		
+			for ( int k = 0; k < img_size; k++){
+				// printf("img_in[i]: %d\n",  img_in[i]);
+				// printf("img_in[j]:%d\n",  img_in[j]);
+				int diff = abs (img_in[i*img_size +k] - img_in[j*img_size +k]);
+				if (diff == 0)
+					num_of_one++;
+				
+			}
+			percent[i * img_size + j]= (num_of_one);
+			// int darsad = (num_of_one*100)/img_size;
+			// printf("darsad tashabohe axe %d ba axe %d hast %d \n", counter , counter+repeat+1 ,darsad);
+			//printf("darsad tashabohe axe %d ba axe %d hast %d \n", i , j ,num_of_one);
+		
 
-// 	int end_tid= (blockIdx.x*2*size)+size;
-
-// 	if (tid < end_tid){
-// 		int diff = abs (origin_data[origin_tid] - data[tid]);
-// 		if (diff == 0)
-// 			num_of_one++;
-			
-// 		}		
-	// if (tid < size ){
-	// 	int diff = abs (origin_data[])
-	// }
-// }
+	
+}
 void sequential_duplicate(int *percent,int *img_in, int img_size){
 // for(int p = 0 ; p< img_size*img_num; p++){
 // 	printf("%d\t", img_in[p] );
@@ -70,11 +74,11 @@ int main(int argc, char *argv[]){
 	block_size_x = 2*input_size;
 	
 
-	cudaStream_t* streams = (cudaStream_t *)malloc(sizeof(cudaStream_t) * STREAM_NUMBERS);
+//	cudaStream_t* streams = (cudaStream_t *)malloc(sizeof(cudaStream_t) * STREAM_NUMBERS);
 
-	for(int i = 0; i < STREAM_NUMBERS; i++){
-		cudaStreamCreate(&streams[i]);
-	}
+	// for(int i = 0; i < STREAM_NUMBERS; i++){
+	// 	cudaStreamCreate(&streams[i]);
+	// }
 
 	// Initialize data on Host
 	int count;
@@ -85,12 +89,12 @@ int main(int argc, char *argv[]){
 	//initialize_data_zero(&output_h, output_size);
 	initialize_data_zero_cudaMallocHost(&output_h, output_size);
 	//initialize_data_zero_cudaMallocHost(&device_output_h, output_size);
-	
+	initialize_data_zero_cudaMallocHost(&output_device_h, output_size);
 	// Initialize data on Device
-	// CUDA_CHECK_RETURN(cudaMalloc((void **)&input_d, sizeof(int)*input_size));
-	// CUDA_CHECK_RETURN(cudaMalloc((void **)&origin_input_d, sizeof(int)*input_size));
+	CUDA_CHECK_RETURN(cudaMalloc((void **)&input_d, sizeof(int)*input_size*img_num));
+	CUDA_CHECK_RETURN(cudaMalloc((void **)&origin_input_d, sizeof(int)*output_size));
 
-	// CUDA_CHECK_RETURN(cudaMalloc((void **)&output_d, sizeof(int)*output_size));
+	CUDA_CHECK_RETURN(cudaMalloc((void **)&output_d, sizeof(int)*output_size));
 	
 	// Perform GPU Warm-up
 	// CUDA_CHECK_RETURN(cudaMemcpyAsync(input_d, input_h, sizeof(int), cudaMemcpyHostToDevice, streams[0]));
@@ -110,33 +114,33 @@ int main(int argc, char *argv[]){
 
 
 	set_clock();
-/*
 
-	int stream_size = 2*input_size;
-	int stream_bytes = stream_size * sizeof(input_d[0]);
 
-	grid_size_x =  img_num*(img_num+1)/2;
-	dim3 grid_dime(grid_size_x, 1, 1);
-	dim3 block_dime(block_size_x/2, 1, 1);
+	// int stream_size = 2*input_size;
+	// int stream_bytes = stream_size * sizeof(input_d[0]);
+
+	grid_size_x =  img_num*(img_num);
+	dim3 grid_dime(1, 1, 1);
+	dim3 block_dime(grid_size_x, 1, 1);
 	
 
 	//stream count = tedade dafAti k in 2 halghe tekrar mishavand yani dar vaghe ma ruye stream count darim loop mizanim vali chon b offset 
 	// niyaz darim majburim an ra b 2 hakgheye mojaza taghsim konim
-	for(int counter  = 0; counter < img_num; counter ++){
-		int origin_offset = counter*img_size;
+	// for(int counter  = 0; counter < img_num; counter ++){
+	// 	int origin_offset = counter*img_size;
 		
-		for (int repeat=0 ; repeat< img_num - counter; repeat++){
+	// 	for (int repeat=0 ; repeat< img_num - counter; repeat++){
 			
-			int offset = img_size*(repeat+counter+1);
-			cudaMemcpyAsync(&origin_input_d[origin_offset], &input_h[origin_offset], stream_bytes/2, cudaMemcpyHostToDevice, streams[repeat % STREAM_NUMBERS]);
-			cudaMemcpyAsync(&input_d[offset], &input_h[offset], stream_bytes/2, cudaMemcpyHostToDevice, streams[ repeat% STREAM_NUMBERS]);
+			//int offset = img_size*(repeat+counter+1);
+			cudaMemcpy(&input_d, &input_h, input_size*img_num, cudaMemcpyHostToDevice);
+			//cudaMemcpy(&input_d[offset], &input_h[offset], stream_bytes/2, cudaMemcpyHostToDevice, streams[ repeat% STREAM_NUMBERS]);
 		
-			duplication_kernel<<< grid_dime, block_dime, 0, streams[i % STREAM_NUMBERS]>>>(&output_d[offset], &origin_input_d[origin_offset], &input_h[offset], input_size);
+			duplication_kernel<<< grid_dime, block_dime>>>(&output_d, &input_h,input_size);
 
-			// cudaMemcpyAsync(&device_output_h[offset], &output_d[offset], stream_bytes, cudaMemcpyDeviceToHost, streams[i % STREAM_NUMBERS]);
+			 cudaMemcpyAsync(&output_device_h, &output_d, output_size, cudaMemcpyDeviceToHost);
 			// offset += stream_size;
-		}
-	}
+	// 	}
+	// }
 
 	CUDA_CHECK_RETURN(cudaDeviceSynchronize()); // Wait for the GPU launched work to complete
 	CUDA_CHECK_RETURN(cudaGetLastError());
@@ -146,7 +150,7 @@ int main(int argc, char *argv[]){
     printf("-> CUDA duplication time: %.4fms\n", elapsed_time / 1000);
 
  //    #ifdef  TEST
- //    validate(output_h, device_output_h, data_size);
+     validate(output_h, device_output_h, img_num*img_num);
  //    #endif
 
 	// for (int i = 0; i < STREAM_NUMBERS; i++){
@@ -161,6 +165,6 @@ int main(int argc, char *argv[]){
 
 	// CUDA_CHECK_RETURN(cudaFree(output_d));
 	// CUDA_CHECK_RETURN(cudaFree(data_d));
-*/
+
 	return 0;
 }
