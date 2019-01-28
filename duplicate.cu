@@ -128,9 +128,8 @@ __global__ void blur_kernel(int *img_out, int *img_in, int height, int width){
 }
 */
 void sequential_duplicate(int *persent,int *img_in, int img_size){
-	// int temp[img_num * img_size];
+	
 	for(int counter = 0; counter < img_num; counter++){
-		// memcpy(temp , 0, img_num * img_size);
 		int j = (counter + 1) * img_size;
 		for(int repeat = 0  ; repeat < img_num - (counter + 1); repeat++){
 			int num_of_one=0;
@@ -138,9 +137,9 @@ void sequential_duplicate(int *persent,int *img_in, int img_size){
 				int diff = abs (img_in[i] - img_in[j]);
 				if (diff != 0)
 					num_of_one++;
-				
 				j++;
 			}
+			printf("%d\n",num_of_one );
 			persent[(counter+1)*(counter+repeat)]= (num_of_one*100)/img_size;
 			printf("darsad tashabohe axe %d ba axe %d hast %d \n", counter , counter+repeat+1 , persent[(counter+1)*(repeat+1)]);
 		}
@@ -185,11 +184,11 @@ int main(int argc, char *argv[]){
 
 	// Initialize data on Host
 	int count;
-	// initialize_data_random_cudaMallocHost(&input_h, input_size*img_num);
-	// for (int i = 0 ; i<input_size*img_num ; i++){
-	// 	printf("%d\n", input_h[i] );
-	// 	count ++;
-	// }
+	initialize_data_random_cudaMallocHost(&input_h, input_size*img_num);
+	for (int i = 0 ; i<input_size*img_num ; i++){
+		printf("%d\n", input_h[i] );
+		count ++;
+	}
 	printf("count is: %d\n", count );
 
 	// Initialize data on Host
