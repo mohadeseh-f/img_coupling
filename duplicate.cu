@@ -134,6 +134,8 @@ void sequential_duplicate(int *persent,int *img_in, int img_size){
 		for(int repeat = 0  ; repeat < img_num - (counter + 1); repeat++){
 			int num_of_one=0;
 			for (int i = counter*img_size; i < (counter+1) *img_size; i++){
+				printf("img_in[i] is %d\n",img_in[i] );
+				printf("img_in[j] is %d\n",img_in[j] );
 				int diff = abs (img_in[i] - img_in[j]);
 				if (diff != 0)
 					num_of_one++;
