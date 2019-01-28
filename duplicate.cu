@@ -88,10 +88,10 @@ int main(int argc, char *argv[]){
 	//initialize_data_zero_cudaMallocHost(&device_output_h, output_size);
 	
 	// Initialize data on Device
-	CUDA_CHECK_RETURN(cudaMalloc((void **)&input_d, sizeof(int)*input_size));
-	CUDA_CHECK_RETURN(cudaMalloc((void **)&origin_input_d, sizeof(int)*input_size));
+	// CUDA_CHECK_RETURN(cudaMalloc((void **)&input_d, sizeof(int)*input_size));
+	// CUDA_CHECK_RETURN(cudaMalloc((void **)&origin_input_d, sizeof(int)*input_size));
 
-	CUDA_CHECK_RETURN(cudaMalloc((void **)&output_d, sizeof(int)*output_size));
+	// CUDA_CHECK_RETURN(cudaMalloc((void **)&output_d, sizeof(int)*output_size));
 	
 	// Perform GPU Warm-up
 	// CUDA_CHECK_RETURN(cudaMemcpyAsync(input_d, input_h, sizeof(int), cudaMemcpyHostToDevice, streams[0]));
