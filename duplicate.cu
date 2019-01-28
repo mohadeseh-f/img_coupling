@@ -229,7 +229,9 @@ int main(int argc, char *argv[]){
 				j++;
 			}
 			printf("%d\n",num_of_one );
-			output_h[(counter+1)*(counter+repeat)]= (num_of_one*100)/input_size;
+			int persent = (num_of_one*100)/input_size;
+			printf("persent is %d\n", persent );
+			output_h[(counter+1)*(counter+repeat)]= persent;
 			printf("darsad tashabohe axe %d ba axe %d hast %d \n", counter , counter+repeat+1 , output_h[(counter+1)*(repeat+1)]);
 		}
 	}
