@@ -16,11 +16,11 @@
 
 #define STREAM_NUMBERS 2
 
-#define RANDOM_NUMBER_MAX 100
+#define RANDOM_NUMBER_MAX 5
 
-#define IMAGE_SIZE_X  100
+#define IMAGE_SIZE_X  2
 
-#define IMAGE_SIZE_Y 100
+#define IMAGE_SIZE_Y 2
 
 #define IMAGE_PAD_SIZE 2
 //******
