@@ -18,9 +18,9 @@
 
 #define RANDOM_NUMBER_MAX 100
 
-#define IMAGE_SIZE_X  1000
+#define IMAGE_SIZE_X  8
 
-#define IMAGE_SIZE_Y 1000
+#define IMAGE_SIZE_Y 8
 
 //******
 #define img_num 20
