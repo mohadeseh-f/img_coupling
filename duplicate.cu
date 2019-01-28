@@ -1,5 +1,5 @@
 
-/* this is project of GPU course in shiraz university  project obout finding duplicated pictuers 
+/* this is the project of GPU course in shiraz university. This project is obout finding duplicate pictuers 
 */
 #include"duplicate.h"
 
