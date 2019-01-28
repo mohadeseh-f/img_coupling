@@ -157,15 +157,16 @@ int main(int argc, char *argv[]){
 	// for (int i = 0; i < STREAM_NUMBERS; i++){
  //        cudaStreamDestroy(streams[i]);
  //    }
-	// //free(data_h);
-	// CUDA_CHECK_RETURN(cudaFreeHost(data_h));
-	// free(output_h);
-	// free(streams);
-	// //free(device_output_h);
-	// CUDA_CHECK_RETURN(cudaFreeHost(device_output_h));
+	free(input_d);
+	free(output_d);
+	//CUDA_CHECK_RETURN(cudaFreeHost(data_h));
+	//free(output_h);
+	
+	//free(device_output_h);
+	CUDA_CHECK_RETURN(cudaFreeHost(output_device_h));
 
-	// CUDA_CHECK_RETURN(cudaFree(output_d));
-	// CUDA_CHECK_RETURN(cudaFree(data_d));
+	CUDA_CHECK_RETURN(cudaFree(output_h));
+	CUDA_CHECK_RETURN(cudaFree(input_h));
 
 	return 0;
 }
