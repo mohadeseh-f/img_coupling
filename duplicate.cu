@@ -34,7 +34,7 @@ void sequential_duplicate(int *percent,int *img_in, int img_size){
 					num_of_one++;
 				j++;
 			}
-			percent[(counter*img_size)+((counter+1)+repeat)]= (num_of_one*100)/img_size;
+			percent[i * img_size + j]= (num_of_one*100)/img_size;
 			// int darsad = (num_of_one*100)/img_size;
 			// printf("darsad tashabohe axe %d ba axe %d hast %d \n", counter , counter+repeat+1 ,darsad);
 			printf("darsad tashabohe axe %d ba axe %d hast %d \n", counter , counter+repeat+1 ,percent[(counter*img_size)+((counter+1)+repeat)]);
