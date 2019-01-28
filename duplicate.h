@@ -23,7 +23,7 @@
 #define IMAGE_SIZE_Y 1000
 
 //******
-#define img_num 10
+#define img_num 20
 
 // #define stream_count  
 
