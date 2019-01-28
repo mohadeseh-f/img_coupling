@@ -26,7 +26,8 @@ void sequential_duplicate(int *percent,int *img_in, int img_size){
 		int j = (counter + 1) * img_size;
 		for(int repeat = 0  ; repeat < img_num - (counter + 1); repeat++){
 			int num_of_one=0;
-			for (int i = counter*img_size; i < (counter+1) *img_size; i++){
+			int i;
+			for ( i = counter*img_size; i < (counter+1) *img_size; i++){
 				// printf("img_in[i]: %d\n",  img_in[i]);
 				// printf("img_in[j]:%d\n",  img_in[j]);
 				int diff = abs (img_in[i] - img_in[j]);
@@ -51,7 +52,7 @@ int main(int argc, char *argv[]){
 	int input_size;
 	int output_size;
 	int *input_h, *output_h, *device_output_h;
-	int *input_d,int *origin_input_d, *output_d;
+	int *input_d,*origin_input_d, *output_d;
 	int stream_count = img_num*(img_num+1)/2;
 	// int work_per_thread;
 
