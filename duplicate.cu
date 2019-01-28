@@ -1,22 +1,22 @@
 #include"duplicate.h"
 
-__global__ void duplication_kernel(int *output,int*origin_data, int *data, int size){
+// __global__ void duplication_kernel(int *output,int*origin_data, int *data, int size){
 	
-	int origin_tid = threadIdx.x + blockIdx.x * blockDim.x;
-	int tid = origin_tid+size;
+// 	int origin_tid = threadIdx.x + blockIdx.x * blockDim.x;
+// 	int tid = origin_tid+size;
 
-	int end_tid= (blockIdx.x*2*size)+size;
+// 	int end_tid= (blockIdx.x*2*size)+size;
 
-	if (tid < end_tid){
-		int diff = abs (origin_data[origin_tid] - data[tid]);
-		if (diff == 0)
-			num_of_one++;
+// 	if (tid < end_tid){
+// 		int diff = abs (origin_data[origin_tid] - data[tid]);
+// 		if (diff == 0)
+// 			num_of_one++;
 			
-		}		
+// 		}		
 	// if (tid < size ){
 	// 	int diff = abs (origin_data[])
 	// }
-}
+// }
 void sequential_duplicate(int *percent,int *img_in, int img_size){
 // for(int p = 0 ; p< img_size*img_num; p++){
 // 	printf("%d\t", img_in[p] );
