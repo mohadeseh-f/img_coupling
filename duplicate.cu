@@ -186,7 +186,7 @@ int main(int argc, char *argv[]){
 	int count;
 	initialize_data_random_cudaMallocHost(&input_h, input_size*img_num);
 	for (int i = 0 ; i<input_size*img_num ; i++){
-		printf("%d\n", input_h[i] );
+		printf("%d\t", input_h[i] );
 		count ++;
 	}
 	printf("count is: %d\n", count );
