@@ -22,20 +22,20 @@ void sequential_duplicate(int *percent,int *img_in, int img_size){
 // 	printf("%d\t", img_in[p] );
 // }	
 
-	for(int counter = 0; counter < img_num; counter++){
+	for(int i = 0; i < img_num; i++){
 		int j = (counter + 1) * img_size;
-		for(int repeat = 0  ; repeat < img_num - (counter + 1); repeat++){
+		for(int j = 0  ; j < img_num ; j++){
 			int num_of_one=0;
-			int i;
-			for ( i = counter*img_size; i < (counter+1) *img_size; i++){
+			
+			for ( int k = 0; k < img_size; k++){
 				// printf("img_in[i]: %d\n",  img_in[i]);
 				// printf("img_in[j]:%d\n",  img_in[j]);
-				int diff = abs (img_in[i] - img_in[j]);
+				int diff = abs (img_in[i*img_size +k] - img_in[j*img_size +k]);
 				if (diff == 0)
 					num_of_one++;
-				j++;
+				
 			}
-			percent[i * img_size + j]= (num_of_one*100)/img_size;
+			percent[i * img_size + j]= (num_of_one);
 			// int darsad = (num_of_one*100)/img_size;
 			// printf("darsad tashabohe axe %d ba axe %d hast %d \n", counter , counter+repeat+1 ,darsad);
 			printf("darsad tashabohe axe %d ba axe %d hast %d \n", counter , counter+repeat+1 ,percent[(counter*img_size)+((counter+1)+repeat)]);
