@@ -127,7 +127,7 @@ __global__ void blur_kernel(int *img_out, int *img_in, int height, int width){
 	img_out[tid_y * width + tid_x] = sum / 9;
 }
 */
-void sequential_duplicate(int *persent,int *img_in, int img_size){
+void sequential_duplicate(int *percent,int *img_in, int img_size){
 	printf("image in us \n" );
 	for (int i = 0 ; i<img_size*img_num ; i++){
 		printf("%d\t", img_in[i] );
@@ -147,8 +147,8 @@ void sequential_duplicate(int *persent,int *img_in, int img_size){
 				j++;
 			}
 			printf("%d\n",num_of_one );
-			persent[(counter+1)*(counter+repeat)]= (num_of_one*100)/img_size;
-			printf("darsad tashabohe axe %d ba axe %d hast %d \n", counter , counter+repeat+1 , persent[(counter+1)*(repeat+1)]);
+			percent[(counter*input_size)+((counter+1)+repeat)]= (num_of_one*100)/img_size;
+			printf("darsad tashabohe axe %d ba axe %d hast %d \n", counter , counter+repeat+1 ,percent[(counter*input_size)+((counter+1)+repeat)]);
 		}
 	}
 	return;
@@ -214,27 +214,27 @@ int main(int argc, char *argv[]){
 	
 	set_clock();
 
-	// sequential_duplicate(output_h,input_h, input_size);
+	sequential_duplicate(output_h,input_h, input_size);
 
-	for(int counter = 0; counter < img_num; counter++){
-		int j = (counter + 1) * input_size;
-		for(int repeat = 0  ; repeat < img_num - (counter + 1); repeat++){
-			int num_of_one=0;
-			for (int i = counter*input_size; i < (counter+1) *input_size; i++){
-				printf("img_in[i] is %d\n",input_h[i] );
-				printf("img_in[j] is %d\n",input_h[j] );
-				int diff = abs (input_h[i] - input_h[j]);
-				if (diff == 0)
-					num_of_one++;
-				j++;
-			}
-			printf("%d\n",num_of_one );
-			int persent = (num_of_one*100)/input_size;
-			printf("persent is %d\n", persent );
-			output_h[(counter*input_size)+((counter+1)+repeat)]= persent;
-			printf("darsad tashabohe axe %d ba axe %d hast %d \n", counter , counter+repeat+1 , output_h[(counter*input_size)+((counter+1)+repeat)]);
-		}
-	}
+	// for(int counter = 0; counter < img_num; counter++){
+	// 	int j = (counter + 1) * input_size;
+	// 	for(int repeat = 0  ; repeat < img_num - (counter + 1); repeat++){
+	// 		int num_of_one=0;
+	// 		for (int i = counter*input_size; i < (counter+1) *input_size; i++){
+	// 			printf("img_in[i] is %d\n",input_h[i] );
+	// 			printf("img_in[j] is %d\n",input_h[j] );
+	// 			int diff = abs (input_h[i] - input_h[j]);
+	// 			if (diff == 0)
+	// 				num_of_one++;
+	// 			j++;
+	// 		}
+	// 		printf("%d\n",num_of_one );
+	// 		int persent = (num_of_one*100)/input_size;
+	// 		printf("persent is %d\n", persent );
+	// 		output_h[(counter*input_size)+((counter+1)+repeat)]= persent;
+	// 		printf("darsad tashabohe axe %d ba axe %d hast %d \n", counter , counter+repeat+1 , output_h[(counter*input_size)+((counter+1)+repeat)]);
+	// 	}
+	// }
 
     elapsed_time = get_elapsed_time();
 
