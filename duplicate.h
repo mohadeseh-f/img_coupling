@@ -22,9 +22,10 @@
 
 #define IMAGE_SIZE_Y 1000
 
-#define IMAGE_PAD_SIZE 2
 //******
 #define img_num 10
+
+// #define stream_count  
 
 
 //Macro for checking cuda errors following a cuda launch or api call
