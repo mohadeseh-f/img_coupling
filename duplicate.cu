@@ -195,8 +195,8 @@ int main(int argc, char *argv[]){
 	
 	// Initialize data on Host
 	// initialize_data_random_cudaMallocHost(&input_h, input_size);
-	//initialize_data_zero(&output_h, output_size);
-	initialize_data_zero_cudaMallocHost(&output_h, output_size);
+	initialize_data_zero(&output_h, output_size);
+	//initialize_data_zero_cudaMallocHost(&output_h, output_size);
 	//initialize_data_zero_cudaMallocHost(&device_output_h, output_size);
 	
 	// Initialize data on Device
