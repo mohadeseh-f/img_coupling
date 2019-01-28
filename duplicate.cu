@@ -6,7 +6,7 @@ __global__ void duplication_kernel(int *output, int *data, int size){
 	int j=tid%size;
 	int i=(tid-j)/size;		
 			int num_of_one=0;
-			for ( int k = 0; k < img_size; k++){
+			for ( int k = 0; k < size; k++){
 				// printf("img_in[i]: %d\n",  img_in[i]);
 				// printf("img_in[j]:%d\n",  img_in[j]);
 				int diff = abs (data[i*size +k] - data[j*size +k]);
