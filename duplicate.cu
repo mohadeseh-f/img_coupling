@@ -199,7 +199,7 @@ int main(int argc, char *argv[]){
 	printf("count is: %d\n", count );
 
 	// Initialize data on Host
-	initialize_data_random_cudaMallocHost(&input_h, input_size);
+	// initialize_data_random_cudaMallocHost(&input_h, input_size);
 	initialize_data_zero(&output_h, output_size);
 	//initialize_data_zero_cudaMallocHost(&device_output_h, output_size);
 	
