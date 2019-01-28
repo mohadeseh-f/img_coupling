@@ -147,8 +147,8 @@ void sequential_duplicate(int *percent,int *img_in, int img_size){
 				j++;
 			}
 			printf("%d\n",num_of_one );
-			percent[(counter*input_size)+((counter+1)+repeat)]= (num_of_one*100)/img_size;
-			printf("darsad tashabohe axe %d ba axe %d hast %d \n", counter , counter+repeat+1 ,percent[(counter*input_size)+((counter+1)+repeat)]);
+			percent[(counter*img_size)+((counter+1)+repeat)]= (num_of_one*100)/img_size;
+			printf("darsad tashabohe axe %d ba axe %d hast %d \n", counter , counter+repeat+1 ,percent[(counter*img_size)+((counter+1)+repeat)]);
 		}
 	}
 	return;
