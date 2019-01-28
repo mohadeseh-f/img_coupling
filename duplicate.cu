@@ -128,7 +128,12 @@ __global__ void blur_kernel(int *img_out, int *img_in, int height, int width){
 }
 */
 void sequential_duplicate(int *persent,int *img_in, int img_size){
-	
+	printf("image in us \n" );
+	for (int i = 0 ; i<input_size*img_num ; i++){
+		printf("%d\t", img_in[i] );
+		
+	}
+	printf("image size is %d\n", img_size );
 	for(int counter = 0; counter < img_num; counter++){
 		int j = (counter + 1) * img_size;
 		for(int repeat = 0  ; repeat < img_num - (counter + 1); repeat++){
