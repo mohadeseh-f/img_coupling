@@ -127,7 +127,7 @@ __global__ void blur_kernel(int *img_out, int *img_in, int height, int width){
 	img_out[tid_y * width + tid_x] = sum / 9;
 }
 */
-void sequential_duplicate(/*int *percent*/,int *img_in, int img_size){	
+void sequential_duplicate(/*int *percent*/int *img_in, int img_size){	
 
 	for(int counter = 0; counter < img_num; counter++){
 		int j = (counter + 1) * img_size;
