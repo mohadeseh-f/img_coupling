@@ -140,7 +140,7 @@ for(int p = 0 ; p< img_size*img_num; p++){
 				printf("img_in[i]: %d\n",  img_in[i]);
 				printf("img_in[j]:%d\n",  img_in[j]);
 				int diff = abs (img_in[i] - img_in[j]);
-				if (diff != 0)
+				if (diff == 0)
 					num_of_one++;
 				j++;
 			}
