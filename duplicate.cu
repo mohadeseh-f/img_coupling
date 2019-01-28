@@ -151,7 +151,7 @@ int main(int argc, char *argv[]){
     printf("-> CUDA duplication time: %.4fms\n", elapsed_time / 1000);
 
  //    #ifdef  TEST
-     validate(output_h, device_output_h, img_num*img_num);
+     validate(output_h, output_device_h, img_num*img_num);
  //    #endif
 
 	// for (int i = 0; i < STREAM_NUMBERS; i++){
