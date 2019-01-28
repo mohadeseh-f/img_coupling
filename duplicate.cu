@@ -138,7 +138,7 @@ int main(int argc, char *argv[]){
 		
 			duplication_kernel<<< grid_dime, block_dime>>>(output_d, input_h, input_size);
 
-			 cudaMemcpyAsync(&output_device_h, &output_d, output_size, cudaMemcpyDeviceToHost);
+			 cudaMemcpy(&output_device_h, &output_d, output_size, cudaMemcpyDeviceToHost);
 			// offset += stream_size;
 	// 	}
 	// }
