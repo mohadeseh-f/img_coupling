@@ -214,7 +214,25 @@ int main(int argc, char *argv[]){
 	
 	set_clock();
 
-	sequential_duplicate(output_h,input_h, input_size);
+	// sequential_duplicate(output_h,input_h, input_size);
+
+	for(int counter = 0; counter < img_num; counter++){
+		int j = (counter + 1) * input_size;
+		for(int repeat = 0  ; repeat < img_num - (counter + 1); repeat++){
+			int num_of_one=0;
+			for (int i = counter*input_size; i < (counter+1) *input_size; i++){
+				printf("img_in[i] is %d\n",input_h[i] );
+				printf("img_in[j] is %d\n",input_h[j] );
+				int diff = abs (input_h[i] - input_h[j]);
+				if (diff != 0)
+					num_of_one++;
+				j++;
+			}
+			printf("%d\n",num_of_one );
+			output_h[(counter+1)*(counter+repeat)]= (num_of_one*100)/img_size;
+			printf("darsad tashabohe axe %d ba axe %d hast %d \n", counter , counter+repeat+1 , output_h[(counter+1)*(repeat+1)]);
+		}
+	}
 
     elapsed_time = get_elapsed_time();
 
