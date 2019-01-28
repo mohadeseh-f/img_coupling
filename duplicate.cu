@@ -139,7 +139,7 @@ void sequential_duplicate(int *percent,int *img_in, int img_size){
 					num_of_one++;
 				j++;
 			}
-			// percent[(counter*img_size)+((counter+1)+repeat)]= (num_of_one*100)/img_size;
+			percent[(counter*img_size)+((counter+1)+repeat)]= (num_of_one*100)/img_size;
 			int darsad = (num_of_one*100)/img_size;
 			printf("darsad tashabohe axe %d ba axe %d hast %d \n", counter , counter+repeat+1 ,darsad);
 		}
@@ -185,15 +185,11 @@ int main(int argc, char *argv[]){
 	// Initialize data on Host
 	int count;
 	initialize_data_random_cudaMallocHost(&input_h, input_size*img_num);
-	// for (int i = 0 ; i<input_size*img_num ; i++){
-	// 	printf("%d\t", input_h[i] );
-	// 	count ++;
-	// }
-	// printf("count is: %d\n", count );
-
+	
 	// Initialize data on Host
 	// initialize_data_random_cudaMallocHost(&input_h, input_size);
-	initialize_data_zero(&output_h, output_size);
+	//initialize_data_zero(&output_h, output_size);
+	initialize_data_zero_cudaMallocHost(&output_h, output_size);
 	//initialize_data_zero_cudaMallocHost(&device_output_h, output_size);
 	
 	// Initialize data on Device
@@ -209,29 +205,10 @@ int main(int argc, char *argv[]){
 
 	sequential_duplicate(output_h,input_h, input_size);
 
-	// for(int counter = 0; counter < img_num; counter++){
-	// 	int j = (counter + 1) * input_size;
-	// 	for(int repeat = 0  ; repeat < img_num - (counter + 1); repeat++){
-	// 		int num_of_one=0;
-	// 		for (int i = counter*input_size; i < (counter+1) *input_size; i++){
-	// 			printf("img_in[i] is %d\n",input_h[i] );
-	// 			printf("img_in[j] is %d\n",input_h[j] );
-	// 			int diff = abs (input_h[i] - input_h[j]);
-	// 			if (diff == 0)
-	// 				num_of_one++;
-	// 			j++;
-	// 		}
-	// 		printf("%d\n",num_of_one );
-	// 		int persent = (num_of_one*100)/input_size;
-	// 		printf("persent is %d\n", persent );
-	// 		// output_h[(counter*input_size)+((counter+1)+repeat)]= persent;
-	// 		printf("darsad tashabohe axe %d ba axe %d hast %d \n", counter , counter+repeat+1 , persent);
-	// 	}
-	// }
 
     elapsed_time = get_elapsed_time();
 
-	printf("-> Naive blur operation time: %.4fms\n", elapsed_time / 1000);
+	printf("->sequential duplication time: %.4fms\n", elapsed_time / 1000);
 
 	// CUDA Parallel blur operation
 /*
