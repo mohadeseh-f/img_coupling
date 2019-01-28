@@ -5,6 +5,7 @@ __global__ void duplication_kernel(int *output, int *data, int size){
 	int tid = threadIdx.x + blockIdx.x * blockDim.x;
 	int j=tid%size;
 	int i=(tid-j)/size;		
+			int num_of_one=0;
 			for ( int k = 0; k < img_size; k++){
 				// printf("img_in[i]: %d\n",  img_in[i]);
 				// printf("img_in[j]:%d\n",  img_in[j]);
@@ -13,7 +14,7 @@ __global__ void duplication_kernel(int *output, int *data, int size){
 					num_of_one++;
 				
 			}
-			percent[i * size + j]= (num_of_one);
+			output[i * size + j]= (num_of_one);
 			// int darsad = (num_of_one*100)/img_size;
 			// printf("darsad tashabohe axe %d ba axe %d hast %d \n", counter , counter+repeat+1 ,darsad);
 			//printf("darsad tashabohe axe %d ba axe %d hast %d \n", i , j ,num_of_one);
@@ -54,7 +55,7 @@ int main(int argc, char *argv[]){
 	int block_size_x, grid_size_x;
 	int input_size;
 	int output_size;
-	int *input_h, *output_h, *device_output_h;
+	int *input_h, *output_h, *output_device_h;
 	int *input_d,*origin_input_d, *output_d;
 	int stream_count = img_num*(img_num+1)/2;
 	// int work_per_thread;
