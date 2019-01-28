@@ -127,13 +127,18 @@ __global__ void blur_kernel(int *img_out, int *img_in, int height, int width){
 	img_out[tid_y * width + tid_x] = sum / 9;
 }
 */
-void sequential_duplicate(int *percent,int *img_in, int img_size){	
+void sequential_duplicate(int *percent,int *img_in, int img_size){
+for(int p = 0 ; p< img_size*img_num; p++){
+	printf("%d\n \t", img_in[p] );
+}	
 
 	for(int counter = 0; counter < img_num; counter++){
 		int j = (counter + 1) * img_size;
 		for(int repeat = 0  ; repeat < img_num - (counter + 1); repeat++){
 			int num_of_one=0;
 			for (int i = counter*img_size; i < (counter+1) *img_size; i++){
+				printf("%d\n",  img_in[i]);
+				printf("%d\n",  img_in[j]);
 				int diff = abs (img_in[i] - img_in[j]);
 				if (diff != 0)
 					num_of_one++;
