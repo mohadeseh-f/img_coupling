@@ -1,6 +1,6 @@
 #include"duplicate.h"
 
-__global__ void duplication_kernel(int *output,int*origin_data, int *data, int size){
+__global__ void duplication_kernel(int *output, int *data, int size){
 	
 	int tid = threadIdx.x + blockIdx.x * blockDim.x;
 	int j=tid%size;
@@ -8,12 +8,12 @@ __global__ void duplication_kernel(int *output,int*origin_data, int *data, int s
 			for ( int k = 0; k < img_size; k++){
 				// printf("img_in[i]: %d\n",  img_in[i]);
 				// printf("img_in[j]:%d\n",  img_in[j]);
-				int diff = abs (img_in[i*img_size +k] - img_in[j*img_size +k]);
+				int diff = abs (data[i*size +k] - data[j*size +k]);
 				if (diff == 0)
 					num_of_one++;
 				
 			}
-			percent[i * img_size + j]= (num_of_one);
+			percent[i * size + j]= (num_of_one);
 			// int darsad = (num_of_one*100)/img_size;
 			// printf("darsad tashabohe axe %d ba axe %d hast %d \n", counter , counter+repeat+1 ,darsad);
 			//printf("darsad tashabohe axe %d ba axe %d hast %d \n", i , j ,num_of_one);
@@ -135,7 +135,7 @@ int main(int argc, char *argv[]){
 			cudaMemcpy(&input_d, &input_h, input_size*img_num, cudaMemcpyHostToDevice);
 			//cudaMemcpy(&input_d[offset], &input_h[offset], stream_bytes/2, cudaMemcpyHostToDevice, streams[ repeat% STREAM_NUMBERS]);
 		
-			duplication_kernel<<< grid_dime, block_dime>>>(&output_d, &input_h,input_size);
+			duplication_kernel<<< grid_dime, block_dime>>>(output_d, input_h, input_size);
 
 			 cudaMemcpyAsync(&output_device_h, &output_d, output_size, cudaMemcpyDeviceToHost);
 			// offset += stream_size;
