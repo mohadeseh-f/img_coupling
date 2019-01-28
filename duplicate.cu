@@ -127,26 +127,18 @@ __global__ void blur_kernel(int *img_out, int *img_in, int height, int width){
 	img_out[tid_y * width + tid_x] = sum / 9;
 }
 */
-void sequential_duplicate(int *percent,int *img_in, int img_size){
-	printf("image in us \n" );
-	for (int i = 0 ; i<img_size*img_num ; i++){
-		printf("%d\t", img_in[i] );
-		
-	}
-	printf("image size is %d\n", img_size );
+void sequential_duplicate(int *percent,int *img_in, int img_size){	
+
 	for(int counter = 0; counter < img_num; counter++){
 		int j = (counter + 1) * img_size;
 		for(int repeat = 0  ; repeat < img_num - (counter + 1); repeat++){
 			int num_of_one=0;
 			for (int i = counter*img_size; i < (counter+1) *img_size; i++){
-				printf("img_in[i] is %d\n",img_in[i] );
-				printf("img_in[j] is %d\n",img_in[j] );
 				int diff = abs (img_in[i] - img_in[j]);
 				if (diff != 0)
 					num_of_one++;
 				j++;
 			}
-			printf("%d\n",num_of_one );
 			percent[(counter*img_size)+((counter+1)+repeat)]= (num_of_one*100)/img_size;
 			printf("darsad tashabohe axe %d ba axe %d hast %d \n", counter , counter+repeat+1 ,percent[(counter*img_size)+((counter+1)+repeat)]);
 		}
