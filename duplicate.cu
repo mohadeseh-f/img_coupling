@@ -129,7 +129,7 @@ __global__ void blur_kernel(int *img_out, int *img_in, int height, int width){
 */
 void sequential_duplicate(int *persent,int *img_in, int img_size){
 	printf("image in us \n" );
-	for (int i = 0 ; i<input_size*img_num ; i++){
+	for (int i = 0 ; i<img_size*img_num ; i++){
 		printf("%d\t", img_in[i] );
 		
 	}
