@@ -23,7 +23,6 @@ void sequential_duplicate(int *percent,int *img_in, int img_size){
 // }	
 
 	for(int i = 0; i < img_num; i++){
-		int j = (counter + 1) * img_size;
 		for(int j = 0  ; j < img_num ; j++){
 			int num_of_one=0;
 			
