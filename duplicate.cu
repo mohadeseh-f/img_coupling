@@ -224,7 +224,7 @@ int main(int argc, char *argv[]){
 				printf("img_in[i] is %d\n",input_h[i] );
 				printf("img_in[j] is %d\n",input_h[j] );
 				int diff = abs (input_h[i] - input_h[j]);
-				if (diff != 0)
+				if (diff == 0)
 					num_of_one++;
 				j++;
 			}
